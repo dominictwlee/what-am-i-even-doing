@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>What am I even doing?</title>
+      <link rel="stylesheet" href="styles/normalize.css" media="screen" charset="utf-8">
+      <link rel="stylesheet" href="styles/html5bp.css" media="screen" charset="utf-8">
+      <link rel="stylesheet" href="styles/style.css" media="screen" charset="utf-8">
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header>
+          <section class="container">
+            <a href="#"><h1 id="logo">?</h1></a>
+            <nav>
+              <ul>
+                <li class="dropdown-button" id="initial-value"><a href="#">Things to do: <span>Select One</span></a>
+                  <ul class="dropdown-menu">
+                      <li id="eat"><a href="#">Eat Pizza</a></li>
+                      <li id="swim"><a href="#">Swim</a></li>
+                      <li id="theatre"><a href="#">Theatre</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <div class="clearfix"></div>
+          </section>
+        </header>
+        <div id="popUp" class="loader hidden">
+          <a href="#" class="closePopUp">X</a>
+          <div class="container">
+            <h1>Article title here</h1>
+            <p>
+              Article description/content here.
+            </p>
+            <a href="#" class="popUpAction" target="_blank">Read more from source</a>
+          </div>
+        </div>
+        <section id="main" class="container">
+          <p id="click">Click</p>
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/app.js"></script>
+        <!--<script id="article-template" type="text/x-handlebars-template">
+          <article class="article">
+            <section class="featuredImage">
+              <img src="{{image}}" alt="" />
+            </section>
+            <section class="articleContent">
+                <a class="story-link" href="{{link}}"><h3 class="title">{{title}}</h3></a>
+                <p class="content">{{description}}</p>
+                <h6>{{tag}}</h6>
+            </section>
+            <section class="impressions">
+              {{impressions}}
+            </section>
+            <div class="clearfix"></div>
+          </article>
+        </script>-->
+    </body>
+</html>
