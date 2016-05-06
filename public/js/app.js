@@ -10,6 +10,9 @@ var $phoneNumber = $('.phone');
 var source = $("#activities-template").html();
 var template = Handlebars.compile(source);
 
+// Variable for CRUD
+// var Message_MAC = new ParseObjectType('Message_MAC');
+
 // Format phone number
 function formatNumber(){
 $phoneNumber.text(function(i, text) {
@@ -65,7 +68,8 @@ function searchStuff(queryLocation, queryTerm) {
   // if location input is empty, show an error
   if ($location.val() == '') {
     alert("Please add a location.");
-  }
+  // else run specificed search
+  } else {
   // $.get('/api/search/?' + query).then(function (data) {
   // console.log('got data', data);
   // })
@@ -96,4 +100,5 @@ $.ajax({
     alert("Can't load because of error.");
   }
   })
+}
 }
