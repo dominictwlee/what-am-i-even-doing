@@ -21,16 +21,26 @@
           <section class="container">
             <a href="#"><h1 id="logo">?</h1></a>
             <nav>
-              <ul>
+              <form>
+                <input type="text" id="location" name="location" placeholder="Where are you?">
+                <select id="things-to-do">
+                  <option selected="selected" id="what">What are you doing?</option>
+                  <option id="pizza" value="pizza">Eat Pizza</option>
+                  <option id="climb" value="rock climb">Rock Climb</option>
+                  <option id="play" value="theatre">See a Play</option>
+                  <option id="music" value="concert">See Live Music</option>
+                </select>
+              </form>
+              <!--<ul>
                 <li class="dropdown-button" id="initial-value"><a href="#">Things to do: <span>Select One</span></a>
                   <ul class="dropdown-menu">
                       <li id="eat"><a href="#">Eat Pizza</a></li>
-                      <li id="music"><a href="#">Live Music</a></li>
                       <li id="climb"><a href="#">Rock Climb</a></li>
                       <li id="play"><a href="#">See a Play</a></li>
+                      <li id="music"><a href="#">See Live Music</a></li>
                   </ul>
                 </li>
-              </ul>
+              </ul> -->
             </nav>
             <div class="clearfix"></div>
           </section>
@@ -41,12 +51,12 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script src="js/handlebars-v4.0.5.js"></script>
         <script id="activities-template" type="text/x-handlebars-template">
-          <article class="article">
+          <article class="activity">
             <section class="featuredImage">
               <img src="{{image}}" alt="" />
             </section>
-            <section class="articleContent">
-                <a class="story-link" href="{{link}}"><h3 class="title">{{title}}</h3></a>
+            <section class="activityContent">
+                <a class="story-link" href="{{link}}" target="_blank"><h3 class="title">{{title}}</h3></a>
                 <p class="address">{{address}} | Phone: <span class="phone">{{phone}}</span></p>
             </section>
             <section class="impressions">

@@ -1,19 +1,6 @@
 //Nav and search variables
-var $dropdownButton = $(".dropdown-button");
-var $dropdownMenu = $(".dropdown-menu");
-var $nav = $("nav");
-var $navItems = $("nav ul ul li");
-var $searchButton = $("#search a");
-var $search = $("#search");
-var $searchBox = $("#search-box");
-var $eat = $("#eat");
-var $initialValue = $("#initial-value span");
-var queryTerm = "pizza";
-var queryLocation = "washington dc"
-var query = $.param({
-    term: queryTerm,
-    location: queryLocation
-  });
+var $selectThingsToDo = $("#things-to-do");
+var $location = $("#location");
 
 // Layout variables
 var $mainContent = $("#main");
@@ -31,17 +18,36 @@ var template = Handlebars.compile(source);
 //     });
 // }
 
-$dropdownButton.hover(function () {
-  $dropdownMenu.addClass("open");
+// clear location on click
+$location.click(function() {
+    $(this).val('')
+  })
+
+// keep track of what slection is made
+$selectThingsToDo.change(function(){
+  var id = $(this).find("option:selected").attr("id");
+  var locationInput = $location.val();
+
+  switch (id){
+    case "what":
+      $mainContent.empty();
+      $location.val('');
+    break;
+    case "pizza":
+      searchStuff(locationInput, "pizza");
+    break;
+    case "climb":
+      searchStuff(locationInput, "rock climbing");
+    break;
+    case "play":
+      searchStuff(locationInput, "theatre");
+    break;
+    case "music":
+      searchStuff(locationInput, "concert");
+    break;
+  }
 });
 
-$dropdownButton.click(function(){
-  switch ($initialValue.text()) {
-    case 'Eat Pizza':
-      searchEat();
-      break;
-  }
-})
 
 function Activity(options) {
   this.title = options.title;
@@ -52,17 +58,17 @@ function Activity(options) {
   this.link = options.link;
 }
 
-$eat.click(function() {
-  $dropdownMenu.removeClass("open");
-  $initialValue.text("Eat Pizza");
-})
-
-// Food Search
-function searchEat() {
+// Activity Search
+function searchStuff(queryLocation, queryTerm) {
   $mainContent.empty();
   // $.get('/api/search/?' + query).then(function (data) {
   // console.log('got data', data);
   // })
+  // var queryLocation = "washington dc";
+  var query = $.param({
+      term: queryTerm,
+      location: queryLocation
+    });
   var url = '/api/search/?' + query;
 $.ajax({
   url: url,
