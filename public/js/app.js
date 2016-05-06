@@ -11,12 +11,12 @@ var source = $("#activities-template").html();
 var template = Handlebars.compile(source);
 
 // Format phone number
-// function formatNumber(){
-// $phoneNumber.text(function(i, text) {
-//         text = text.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
-//         return text;
-//     });
-// }
+function formatNumber(){
+$phoneNumber.text(function(i, text) {
+        text = text.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
+        return text;
+    });
+}
 
 // clear location on click
 $location.click(function() {
@@ -28,6 +28,7 @@ $selectThingsToDo.change(function(){
   var id = $(this).find("option:selected").attr("id");
   var locationInput = $location.val();
 
+// when specific activity is selected, run search
   switch (id){
     case "what":
       $mainContent.empty();
@@ -83,8 +84,8 @@ $.ajax({
           image: activityData[i].image_url,
           link: activityData[i].url
         });
-        // formatNumber();
         $mainContent.append(template(activity));
+        formatNumber();
       }
   },
   error: function () {
@@ -92,11 +93,3 @@ $.ajax({
   }
   })
 }
-
-// $(document).ready(function () {
-//   var query = $.param({
-//     term: 'pizza',
-//     location: 'washington dc'
-//   });
-//
-// })
