@@ -4,61 +4,6 @@
   margin: 0 auto;
 }
 
-#popUp {
-  opacity: 0.95;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-  height: auto;
-  background:  #fff;
-  display: none;
-}
-
-#popUp .closePopUp {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 40px;
-  color: #FE052C;
-  text-decoration: none;
-}
-
-#popUp.loader {
-  background-image: url(../images/ajax_loader.gif);
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-#popUp.loader .container {
-  display: none;
-}
-
-#popUp .container {
-  margin-top: 80px;
-}
-
-#popUp h1 {
-  margin-bottom: 0;
-}
-
-#popUp .popUpAction {
-  padding: 10px;
-  background-color: #FE052C;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  transform: 0.2s all;
-  margin-top: 30px;
-  display: inline-block;
-}
-
-#popUp .popUpAction:hover {
-  color: #FE052C;
-  background: #fff;
-}
-
 /* Header styles */
 header {
   background-color: #FE052C;
@@ -232,10 +177,13 @@ nav ul ul li {
 .article .impressions {
   width: 15%;
   float: right;
-  font-size: 30px;
+  font-size: 15px;
   margin-top: 15px;
   text-align: right;
   color: #097FB2;
+}
+.address {
+
 }
 
 .dropdown-menu:not(.open) {
