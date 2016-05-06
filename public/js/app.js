@@ -62,6 +62,10 @@ function Activity(options) {
 // Activity Search
 function searchStuff(queryLocation, queryTerm) {
   $mainContent.empty();
+  // if location input is empty, show an error
+  if ($location.val() == '') {
+    alert("Please add a location.");
+  }
   // $.get('/api/search/?' + query).then(function (data) {
   // console.log('got data', data);
   // })
