@@ -81,14 +81,19 @@ $.ajax({
       var $form = $("form");
       $commentLink.on('click', function (e) {
         e.preventDefault();
-        $(this).closest(".activity").find($form).toggleClass("hidden");
+        var $activity = $(this).closest(".activity");
+        var $messageText = $activity.find(".message");
+        $activity.find($form).toggleClass("hidden");
+        $messageText.focus();
+
       })
       $form.submit(function (e) {
         e.preventDefault();
-        var $messageText = $(".message");
-        var comment = $(this).closest(".activity").find($messageText).val();
-        $(this).closest(".activity").find(".comment-list ul").append("<li>" + comment + "</li>");
-        $(this).closest(".activity").find($messageText).val('');
+        var $activity = $(this).closest(".activity");
+        var $messageText = $activity.find(".message");
+        var comment = $activity.find($messageText).val();
+        $activity.find(".comment-list ul").append("<li>" + comment + "</li>");
+        $activity.find($messageText).val('');
       })
   },
   error: function () {
