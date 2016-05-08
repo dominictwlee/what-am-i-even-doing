@@ -4,21 +4,20 @@ var $location = $("#location");
 
 // Layout variables
 var $mainContent = $("#main");
-var $phoneNumber = $('.phone');
 
 //Handlebars Template variables
 var source = $("#activities-template").html();
 var template = Handlebars.compile(source);
 
 // Variable for CRUD
-// var Message_MAC = new ParseObjectType('Message_MAC');
+var Message_MAC = new ParseObjectType('Message_MAC');
+
+// Commenting
+
 
 // Format phone number
-function formatNumber(){
-$phoneNumber.text(function(i, text) {
-        text = text.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
-        return text;
-    });
+function formatNumber(phoneNumber) {
+  return phoneNumber.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
 }
 
 // clear location on click
@@ -28,28 +27,9 @@ $location.click(function() {
 
 // keep track of what slection is made
 $selectThingsToDo.change(function(){
-  var id = $(this).find("option:selected").attr("id");
+  var searchTerm = $(this).find('option:selected').attr('value');
   var locationInput = $location.val();
-
-// when specific activity is selected, run search
-  switch (id){
-    case "what":
-      $mainContent.empty();
-      $location.val('');
-    break;
-    case "pizza":
-      searchStuff(locationInput, "pizza");
-    break;
-    case "climb":
-      searchStuff(locationInput, "rock climbing");
-    break;
-    case "play":
-      searchStuff(locationInput, "theatre");
-    break;
-    case "music":
-      searchStuff(locationInput, "concert");
-    break;
-  }
+  searchStuff(locationInput, searchTerm);
 });
 
 
@@ -84,16 +64,19 @@ $.ajax({
   success: function(response){
       var activityData = response.businesses
       for (i = 0; i < activityData.length; i++) {
+        var phoneNumber = activityData[i].phone;
+        var formattedPhoneNumber = formatNumber(phoneNumber);
+
         var activity = new Activity({
           title: activityData[i].name,
           address: activityData[i].location.address[0],
-          phone: activityData[i].phone,
+          phone: formattedPhoneNumber,
           rating: activityData[i].rating,
           image: activityData[i].image_url,
           link: activityData[i].url
         });
+
         $mainContent.append(template(activity));
-        formatNumber();
       }
   },
   error: function () {

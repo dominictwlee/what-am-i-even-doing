@@ -4,6 +4,11 @@
   margin: 0 auto;
 }
 
+/* Comment styles */
+.hidden {
+  display: none;
+}
+
 /* Header styles */
 header {
   background-color: black;

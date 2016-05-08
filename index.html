@@ -48,6 +48,14 @@
             <section class="activityContent">
                 <a class="story-link" href="{{link}}" target="_blank"><h3 class="title">{{title}}</h3></a>
                 <p class="address">{{address}} | Phone: <span class="phone">{{phone}}</span></p>
+                <a href="#" class="comment">Comment</a>
+                <form action="" class="hidden" id="message-form">
+                  <div class="form-group">
+                    <label>Message:</label>
+                    <textarea id="message" type="text" class="form-control"></textarea>
+                  </div>
+                  <button class="btn btn-default">Post to board</button>
+                </form>
             </section>
             <section class="impressions">
               Rating: {{rating}}
@@ -56,8 +64,8 @@
           </article>
         </script>
         <!-- Parse CDN -->
-        <!--<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-        <script src="js/client.js"></script> -->
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+        <script src="js/client.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>
