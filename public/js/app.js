@@ -12,11 +12,9 @@ var template = Handlebars.compile(source);
 // Variable for CRUD
 var Message_MAC = new ParseObjectType('Message_MAC');
 
-// Commenting
-
-
 // Format phone number
 function formatNumber(phoneNumber) {
+  phoneNumber = phoneNumber || "";
   return phoneNumber.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
 }
 
@@ -78,6 +76,13 @@ $.ajax({
 
         $mainContent.append(template(activity));
       }
+      // Commenting
+      var $commentLink = $(".comment");
+      var $form = $("form");
+      $commentLink.on('click', function (e) {
+        $(this).closest(".activityContent").find($form).toggleClass("hidden");
+      })
+
   },
   error: function () {
     alert("Can't load because of error.");
