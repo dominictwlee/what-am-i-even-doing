@@ -47,12 +47,13 @@
             </section>
             <section class="activityContent">
                 <a class="story-link" href="{{link}}" target="_blank"><h3 class="title">{{title}}</h3></a>
-                <p class="address">{{address}} | Phone: <span class="phone">{{phone}}</span></p>
+                <p class="address">{{address}} | <span class="phone">{{phone}}</span></p>
                 <a href="#" class="comment">Comment</a>
+                <div class="comment-list"><ul></ul></div>
                 <form action="" class="hidden message-form">
                   <div class="form-group">
                     <label>Message:</label>
-                    <textarea id="message" type="text" class="form-control"></textarea>
+                    <textarea type="text" class="message form-control"></textarea>
                   </div>
                   <button class="btn btn-default">Add Comment</button>
                 </form>

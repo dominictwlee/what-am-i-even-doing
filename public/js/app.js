@@ -80,9 +80,16 @@ $.ajax({
       var $commentLink = $(".comment");
       var $form = $("form");
       $commentLink.on('click', function (e) {
-        $(this).closest(".activityContent").find($form).toggleClass("hidden");
+        e.preventDefault();
+        $(this).closest(".activity").find($form).toggleClass("hidden");
       })
-
+      $form.submit(function (e) {
+        e.preventDefault();
+        var $messageText = $(".message");
+        var comment = $(this).closest(".activity").find($messageText).val();
+        $(this).closest(".activity").find(".comment-list ul").append("<li>" + comment + "</li>");
+        $(this).closest(".activity").find($messageText).val('');
+      })
   },
   error: function () {
     alert("Can't load because of error.");
