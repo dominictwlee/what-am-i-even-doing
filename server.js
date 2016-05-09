@@ -40,6 +40,6 @@ app.get('/config', function (req, res) {
   res.sendFile(path.join(__dirname, 'config.html'));
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT||3000, function() {
   console.log('listening at localhost:3000');
 });
