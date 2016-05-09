@@ -15,7 +15,7 @@ var Message_MAC = new ParseObjectType('Message_MAC');
 // Format phone number
 function formatNumber(phoneNumber) {
   phoneNumber = phoneNumber || "";
-  return phoneNumber.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "$1-$2-$3");
+  return phoneNumber.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "($1) $2-$3");
 }
 
 // clear location on click
@@ -92,8 +92,9 @@ $.ajax({
         var $activity = $(this).closest(".activity");
         var $messageText = $activity.find(".message");
         var comment = $activity.find($messageText).val();
-        $activity.find(".comment-list ul").append("<li>" + comment + "</li>");
+        $activity.find(".comment-list ul").append("<li>" + comment + "<a href='#' class='delete'>Delete</a><a href='#' class='update'>Update</a></li>");
         $activity.find($messageText).val('');
+
       })
   },
   error: function () {
