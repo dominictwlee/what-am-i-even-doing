@@ -1,7 +1,7 @@
 //Nav and search variables
 var $selectThingsToDo = $("#things-to-do");
 var $location = $("#location");
-var $landingPageText = $(".landing-page");
+var $landingPageContainer = $("#landing-page-container");
 var $logo = $("#logo");
 
 // Layout variables
@@ -35,8 +35,10 @@ $selectThingsToDo.change(function(){
   var searchTerm = $(this).find('option:selected').attr('value');
   var locationInput = $location.val();
   searchStuff(locationInput, searchTerm);
+  // change heading text on selection
+  var selectedText = $(this).find('option:selected').text();
+  $landingPageContainer.html("<h2 class='landing-page'>" + selectedText + "</h2>");
 });
-
 
 function Activity(options) {
   this.title = options.title;
@@ -56,7 +58,6 @@ function searchStuff(queryLocation, queryTerm) {
     alert("Please add a location.");
   // else run specificed search
   } else {
-    $landingPageText.replaceWith("<h2 class='landing-page'>Check out some stuff below!</h2>");
   // $.get('/api/search/?' + query).then(function (data) {
   // console.log('got data', data);
   // })

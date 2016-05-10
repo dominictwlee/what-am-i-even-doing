@@ -79,6 +79,7 @@ header nav {
 }
 .form-control-lg {
     height: 30px;
+    padding: 4px;
     margin: 4px;
 }
 
