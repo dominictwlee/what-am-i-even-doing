@@ -1,6 +1,8 @@
 //Nav and search variables
 var $selectThingsToDo = $("#things-to-do");
 var $location = $("#location");
+var $landingPageText = $(".landing-page");
+var $logo = $("#logo");
 
 // Layout variables
 var $mainContent = $("#main");
@@ -17,6 +19,11 @@ function formatNumber(phoneNumber) {
   phoneNumber = phoneNumber || "";
   return phoneNumber.replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, "($1) $2-$3");
 }
+
+// Reload page on click of logo
+$logo.on('click', function() {
+  location.reload(true);
+})
 
 // clear location on click
 $location.click(function() {
@@ -49,6 +56,7 @@ function searchStuff(queryLocation, queryTerm) {
     alert("Please add a location.");
   // else run specificed search
   } else {
+    $landingPageText.replaceWith("<h2 class='landing-page'>Check out some stuff below!</h2>");
   // $.get('/api/search/?' + query).then(function (data) {
   // console.log('got data', data);
   // })

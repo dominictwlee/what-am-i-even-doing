@@ -1,7 +1,45 @@
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:200,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+
 /* General styles */
 .container {
   max-width: 1000px;
   margin: 0 auto;
+}
+
+body {
+  background: url('/images/city-scene.jpg')no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #1d1500;
+}
+
+h3.landing-page {
+  color: white;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 200;
+  max-width: 500px;
+  font-size: 6em;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50vh;
+  transform: translateY(-50%);
+}
+h2.landing-page {
+  color: white;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 200;
+  max-width: 400px;
+  font-size: 4em;
+  text-shadow: 2px 2px black;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 120px;
+}
+.phone {
+  font-weight: bold;
 }
 
 /* Comment styles */
@@ -16,27 +54,32 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 10;
 }
 
 header h1 {
   color: #FFF;
   padding: 10px 2%;
-  margin: 0;
-  width: 16%;
+  margin: 4px;
   float: left;
   padding-left: 0;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 700;
 }
 
 /* Header navigation bar */
 header nav {
   padding: 10px 2%;
-  width: 76%;
   float: right;
   text-align: right;
   line-height: 30px;
   margin-top: 0;
   position: relative;
   vertical-align: middle;
+}
+.form-control-lg {
+    height: 30px;
+    margin: 4px;
 }
 
 /* Main Section */
@@ -47,10 +90,17 @@ header nav {
 /* Individual Items Styling */
 .activity {
   border-bottom: 1px solid #ccc;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .activity:hover {
   background-color: #eee;
+}
+
+article.activity {
+    background: white;
+    opacity: .8;
+    padding: 20px;
 }
 
 .activity .featuredImage {
@@ -76,6 +126,9 @@ header nav {
 .activity .activityContent h3 {
   margin-bottom: 0;
   color: blue;
+}
+.activity .activityContent h3:hover {
+  opacity: .7;
 }
 
 .activity .activityContent h6 {

@@ -5,6 +5,7 @@
       <meta charset="utf-8">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       <title>What am I even doing?</title>
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
       <link rel="stylesheet" href="styles/normalize.css" media="screen" charset="utf-8">
       <link rel="stylesheet" href="styles/html5bp.css" media="screen" charset="utf-8">
       <link rel="stylesheet" href="styles/style.css" media="screen" charset="utf-8">
@@ -19,22 +20,25 @@
 
         <header>
           <section class="container">
-            <a href="#"><h1 id="logo">?</h1></a>
+            <a href="#"><h1 id="logo">what am i even doing?</h1></a>
             <nav>
-              <form>
-                <input type="text" id="location" name="location" placeholder="Where are you?">
-                <select id="things-to-do">
-                  <option selected="selected" id="what">What to do?</option>
-                  <option id="pizza" value="pizza">Eat Pizza</option>
-                  <option id="climb" value="rock climb">Rock Climb</option>
-                  <option id="play" value="theatre">See a Play</option>
-                  <option id="music" value="concert">See Live Music</option>
-                </select>
+              <form class="form-inline">
+                <fieldset class="form-group">
+                  <input type="text" id="location" class="form-control form-control-lg" name="location" placeholder="Where are you?">
+                  <select id="things-to-do" class="form-control form-control-lg">
+                    <option selected="selected" id="what">What to do?</option>
+                    <option id="pizza" value="pizza">Eat Pizza</option>
+                    <option id="climb" value="rock climb">Rock Climb</option>
+                    <option id="play" value="theatre">See a Play</option>
+                    <option id="music" value="concert">See Live Music</option>
+                  </select>
+                </fieldset>
               </form>
             </nav>
             <div class="clearfix"></div>
           </section>
         </header>
+        <h3 class="landing-page">Find Stuff To Do in the City</h3>
         <section id="main" class="container">
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
