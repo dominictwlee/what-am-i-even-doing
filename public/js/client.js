@@ -73,6 +73,26 @@
 	  }
 	};
 
+	ParseObjectType.prototype.where = function(props, onGet){
+		var request = new XMLHttpRequest();
+		var query = "?where=" + encodeURIComponent(JSON.stringify(props))
+	  request.open("GET", this.baseUrl + query, true);
+	  for(var header in this.headers){
+	    request.setRequestHeader(header, this.headers[header]);
+	  }
+	  request.send();
+	  request.onload = function(){
+	    if(this.status >= 200 && this.status < 400){
+	      parseResponse(this.response, onGet);
+	    } else {
+	      onGet(this.response);
+	    }
+	  }
+	  request.onerror = function(e){
+	    throw new Error(e);
+	  }
+	}
+
 	ParseObjectType.prototype.update = function(objId, props, onUpdate) {
 	  var request = new XMLHttpRequest();
 	  request.open("PUT", this.baseUrl + '/' + objId, true);

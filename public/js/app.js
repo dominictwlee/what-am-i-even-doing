@@ -10,7 +10,7 @@ var source = $("#activities-template").html();
 var template = Handlebars.compile(source);
 
 // Variable for CRUD
-var Message_MAC = new ParseObjectType('Message_MAC');
+var Comment_MAC = new ParseObjectType('Comment_MAC');
 
 // Format phone number
 function formatNumber(phoneNumber) {
@@ -33,6 +33,7 @@ $selectThingsToDo.change(function(){
 
 function Activity(options) {
   this.title = options.title;
+  this.id = options.id;
   this.address = options.address;
   this.phone = options.phone;
   this.rating = options.rating;
@@ -64,17 +65,30 @@ $.ajax({
       for (i = 0; i < activityData.length; i++) {
         var phoneNumber = activityData[i].phone;
         var formattedPhoneNumber = formatNumber(phoneNumber);
-
+        console.log(activityData[i])
         var activity = new Activity({
           title: activityData[i].name,
+          id: activityData[i].id,
           address: activityData[i].location.address[0],
           phone: formattedPhoneNumber,
           rating: activityData[i].rating,
           image: activityData[i].image_url,
-          link: activityData[i].url
+          link: activityData[i].url,
         });
 
         $mainContent.append(template(activity));
+
+        // get comments where id is activitityData[i].id
+        Comment_MAC.where({id:"pier-six-concert-pavilion-baltimore"}, function(err, results){
+          console.log(results)
+        })
+
+        // Comment_MAC.get(objectId, function(err, comment) {
+        //     // check for error
+        //     console.log(comment);
+        // });
+        // for each comment
+        // append to the templated activity
       }
       // Commenting
       var $commentLink = $(".comment");
@@ -92,10 +106,35 @@ $.ajax({
         var $activity = $(this).closest(".activity");
         var $messageText = $activity.find(".message");
         var comment = $activity.find($messageText).val();
+        var id = $activity.find("[name='yelp-id']").val();
         $activity.find(".comment-list ul").append("<li>" + comment + "<a href='#' class='delete'>Delete</a><a href='#' class='update'>Update</a></li>");
         $activity.find($messageText).val('');
 
+        var commentData = {text: comment, id: id}
+        Comment_MAC.create(commentData, function(err, result) {
+        // if an error exists, read it in the console
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
       })
+    })
+
+    // Need Help with this
+
+    // Comment_MAC.getAll(function(err, allComments) {
+    //    // check for error
+    //    console.log(allComments);
+    // });
+    // Comment_MAC.update(objectId, { text: comment }, function(err, result) {
+    //       // check for the error
+    //
+    //       console.log(result); // { updatedAt: 'some date string' }
+    // });
+    // Comment_MAC.remove(objectId, function(err){
+    //     // check for err
+    // })
   },
   error: function () {
     alert("Can't load because of error.");
@@ -103,3 +142,8 @@ $.ajax({
   })
 }
 }
+
+
+Comment_MAC.where({id:"pier-six-concert-pavilion-baltimore"}, function(err, results){
+  console.log(results)
+})
