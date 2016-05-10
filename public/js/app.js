@@ -40,6 +40,7 @@ $selectThingsToDo.change(function(){
   $landingPageContainer.html("<h2 class='landing-page'>" + selectedText + "</h2>");
 });
 
+// activity constructor
 function Activity(options) {
   this.title = options.title;
   this.id = options.id;
@@ -58,10 +59,7 @@ function searchStuff(queryLocation, queryTerm) {
     alert("Please add a location.");
   // else run specificed search
   } else {
-  // $.get('/api/search/?' + query).then(function (data) {
-  // console.log('got data', data);
-  // })
-  // var queryLocation = "washington dc";
+
   var query = $.param({
       term: queryTerm,
       location: queryLocation
@@ -86,13 +84,13 @@ $.ajax({
         });
 
         $mainContent.append(template(activity));
-
+        var businessId = Activity.id;
         // get comments where id is activitityData[i].id
-        Comment_MAC.where({id:"pier-six-concert-pavilion-baltimore"}, function(err, results){
-          console.log(results)
-        })
+        // Comment_MAC.where({id:"pier-six-concert-pavilion-baltimore"}, function(err, results){
+        //   console.log(results)
+        // })
 
-        // Comment_MAC.get(objectId, function(err, comment) {
+        // Comment_MAC.get(objectId, businessId, function(err, comment) {
         //     // check for error
         //     console.log(comment);
         // });
