@@ -53,9 +53,31 @@ function Activity(options) {
 /**
 * Add a single comment to the comments list element (on form submission)
 */
-function addComment(yelpId, commentText) {
+function addComment(yelpId, comment) {
   var $activity = $('#' + yelpId);
-  $activity.find("ul.comment-list").append("<li>" + commentText + "<a href='#' class='delete'>Delete</a>");
+  $activity.find("ul.comment-list").append('<li id="' + comment.objectId + '">' + comment.text + "<a href='#' class='delete'>Delete</a>");
+
+  var $delete = $activity.find('.delete');
+
+  $delete.on('click', function(e) {
+    e.preventDefault();
+    removeComment($(this).closest('li'));
+    // var $activity = $(this).closest(".activity");
+    // var $commentToDelete = $activity.find("li");
+  });
+}
+
+function removeComment($commentToRemove){
+  var commentId = $commentToRemove.attr('id');
+  Comment_MAC.remove(commentId, function(err, result){
+    // check for err
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(result);
+        $commentToRemove.remove();
+    }
+  })
 }
 
 /**
@@ -66,9 +88,9 @@ function setComments(yelpId, comments) {
   var $activity = $('#' + yelpId);
   var commentElements = comments.map(function (comment) {
     return (
-      "<li>" + comment.text +
-        "<a href='#' class='delete'>Delete</a>" +
-      "</li>"
+      '<li id="' + comment.objectId + '">' + comment.text +
+        '<a href="#" class="delete">Delete</a>' +
+      '</li>'
     );
   });
 
@@ -159,6 +181,13 @@ $.ajax({
           //   addComment(id, comment.text);
           // });
         }
+        var $delete = $(".delete");
+        $delete.on('click', function(e) {
+          e.preventDefault();
+          removeComment($(this).closest('li'));
+          // var $activity = $(this).closest(".activity");
+          // var $commentToDelete = $activity.find("li");
+        })
       })
 
       // Commenting
@@ -178,23 +207,22 @@ $.ajax({
         var $messageText = $activity.find(".message");
         var comment = $activity.find($messageText).val();
         var id = $activity.find("[name='yelp-id']").val();
-        addComment(id, comment);
         $messageText.val('');
 
         var commentData = {text: comment, id: id}
-        Comment_MAC.create(commentData, function(err, result) {
+        Comment_MAC.create(commentData, function(err, comment) {
         // if an error exists, read it in the console
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
+            comment.text = commentData.text;
+            comment.id = commentData.id;
+
+            console.log(comment);
+            addComment(id, comment);
         }
       })
     })
-
-    // Comment_MAC.remove(objectId, function(err){
-    //     // check for err
-    // })
   },
   error: function () {
     alert("Can't load because of error.");
