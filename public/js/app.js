@@ -25,22 +25,22 @@ $logo.on('click', function() {
   location.reload(true);
 })
 
-// clear location on click
+// Clear location on click
 $location.click(function() {
     $(this).val('')
   })
 
-// keep track of what slection is made
+// Keep track of what slection is made
 $selectThingsToDo.change(function(){
   var searchTerm = $(this).find('option:selected').attr('value');
   var locationInput = $location.val();
   searchStuff(locationInput, searchTerm);
-  // change heading text on selection
+  // Change heading text on selection
   var selectedText = $(this).find('option:selected').text();
   $landingPageContainer.html("<h2 class='landing-page'>" + selectedText + "</h2>");
 });
 
-// activity constructor
+// Activity Constructor
 function Activity(options) {
   this.title = options.title;
   this.id = options.id;
@@ -70,7 +70,7 @@ function addComment(yelpId, comment) {
 function removeComment($commentToRemove){
   var commentId = $commentToRemove.attr('id');
   Comment_MAC.remove(commentId, function(err, result){
-    // check for err
+    // Check for err
     if (err) {
         console.log(err);
     } else {
@@ -100,10 +100,10 @@ function setComments(yelpId, comments) {
 // Activity Search
 function searchStuff(queryLocation, queryTerm) {
   $mainContent.empty();
-  // if location input is empty, show an error
+  // If location input is empty, show an error
   if ($location.val() == '') {
     alert("Please add a location.");
-  // else run specificed search
+  // Else run specificed search
   } else {
 
   var query = $.param({
@@ -155,7 +155,7 @@ $.ajax({
       * }
       */
       var commentsById = {};
-      // filtering comments for selected activity
+      // Filtering comments for selected activity
       Comment_MAC.where({$or: activityQueryParams}, function(err, comments){
         // if not array of comments, return
         if (!Array.isArray(comments)) return;
@@ -198,6 +198,7 @@ $.ajax({
         e.preventDefault();
         var $activity = $(this).closest(".activity");
         var $messageText = $activity.find(".message");
+        // Show hidden comment form
         $activity.find($form).toggleClass("hidden");
         $messageText.focus();
       })
@@ -212,7 +213,7 @@ $.ajax({
 
         var commentData = {text: comment, id: id}
         Comment_MAC.create(commentData, function(err, comment) {
-        // if an error exists, read it in the console
+        // If an error exists, read it in the console
         if (err) {
             console.log(err);
         } else {
