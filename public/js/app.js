@@ -50,6 +50,30 @@ function Activity(options) {
   this.image = options.image;
   this.link = options.link;
 }
+/**
+* Add a single comment to the comments list element (on form submission)
+*/
+function addComment(yelpId, commentText) {
+  var $activity = $('#' + yelpId);
+  $activity.find("ul.comment-list").append("<li>" + commentText + "<a href='#' class='delete'>Delete</a>");
+}
+
+/**
+* Initialize the comments-list element from an array of comments objects
+* (when the yelp activity is first loaded)
+*/
+function setComments(yelpId, comments) {
+  var $activity = $('#' + yelpId);
+  var commentElements = comments.map(function (comment) {
+    return (
+      "<li>" + comment.text +
+        "<a href='#' class='delete'>Delete</a>" +
+      "</li>"
+    );
+  });
+
+  $activity.find("ul.comment-list").html(commentElements);
+}
 
 // Activity Search
 function searchStuff(queryLocation, queryTerm) {
@@ -69,10 +93,12 @@ $.ajax({
   url: url,
   success: function(response){
       var activityData = response.businesses
+      var activityQueryParams = [];
+
       for (i = 0; i < activityData.length; i++) {
         var phoneNumber = activityData[i].phone;
         var formattedPhoneNumber = formatNumber(phoneNumber);
-        console.log(activityData[i])
+        // console.log(activityData[i])
         var activity = new Activity({
           title: activityData[i].name,
           id: activityData[i].id,
@@ -83,12 +109,12 @@ $.ajax({
           link: activityData[i].url,
         });
 
+        activityQueryParams.push({id: activity.id});
+
         $mainContent.append(template(activity));
-        var businessId = Activity.id;
+
         // get comments where id is activitityData[i].id
-        // Comment_MAC.where({id:"pier-six-concert-pavilion-baltimore"}, function(err, results){
-        //   console.log(results)
-        // })
+
 
         // Comment_MAC.get(objectId, businessId, function(err, comment) {
         //     // check for error
@@ -97,6 +123,44 @@ $.ajax({
         // for each comment
         // append to the templated activity
       }
+
+      /**
+      * commentsById = {
+      *  'earth-treks-climbing-centers-timonium-timonium': [
+      *     {... text: 'my comment'},
+      *     {... text: 'another comment'}
+      *  ]
+      * }
+      */
+      var commentsById = {};
+
+      Comment_MAC.where({$or: activityQueryParams}, function(err, comments){
+        if (!Array.isArray(comments)) return;
+
+        /**
+        * Iterate over comments in API response, grouping them by ID
+        */
+        comments.forEach(function (comment) {
+          if (Array.isArray(commentsById[comment.id])) {
+            commentsById[comment.id].push(comment);
+          } else {
+            commentsById[comment.id] = [comment];
+          }
+        });
+
+        /**
+        * Iterate over commentsById and append the comments
+        * to their corresponding DOM elements
+        */
+        for (var id in commentsById) {
+          var comments = commentsById[id] || [];
+          setComments(id, comments);
+          // comments.forEach(function (comment) {
+          //   addComment(id, comment.text);
+          // });
+        }
+      })
+
       // Commenting
       var $commentLink = $(".comment");
       var $form = $("form");
@@ -106,16 +170,16 @@ $.ajax({
         var $messageText = $activity.find(".message");
         $activity.find($form).toggleClass("hidden");
         $messageText.focus();
-
       })
+
       $form.submit(function (e) {
         e.preventDefault();
         var $activity = $(this).closest(".activity");
         var $messageText = $activity.find(".message");
         var comment = $activity.find($messageText).val();
         var id = $activity.find("[name='yelp-id']").val();
-        $activity.find(".comment-list ul").append("<li>" + comment + "<a href='#' class='delete'>Delete</a><a href='#' class='update'>Update</a></li>");
-        $activity.find($messageText).val('');
+        addComment(id, comment);
+        $messageText.val('');
 
         var commentData = {text: comment, id: id}
         Comment_MAC.create(commentData, function(err, result) {
@@ -128,17 +192,6 @@ $.ajax({
       })
     })
 
-    // Need Help with this
-
-    // Comment_MAC.getAll(function(err, allComments) {
-    //    // check for error
-    //    console.log(allComments);
-    // });
-    // Comment_MAC.update(objectId, { text: comment }, function(err, result) {
-    //       // check for the error
-    //
-    //       console.log(result); // { updatedAt: 'some date string' }
-    // });
     // Comment_MAC.remove(objectId, function(err){
     //     // check for err
     // })
@@ -149,8 +202,3 @@ $.ajax({
   })
 }
 }
-
-
-Comment_MAC.where({id:"pier-six-concert-pavilion-baltimore"}, function(err, results){
-  console.log(results)
-})

@@ -50,7 +50,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script src="js/handlebars-v4.0.5.js"></script>
         <script id="activities-template" type="text/x-handlebars-template">
-          <article class="activity">
+          <article class="activity" id="{{id}}">
             <section class="featured-image">
               <img src="{{image}}" alt="" />
             </section>
@@ -58,7 +58,7 @@
                 <a class="story-link" href="{{link}}" target="_blank"><h3 class="title">{{title}}</h3></a>
                 <p class="address">{{address}} | <span class="phone">{{phone}}</span></p>
                 <a href="#" class="comment">Comment</a>
-                <div class="comment-list"><ul></ul></div>
+                <ul class="comment-list"></ul>
                 <form action="" class="hidden message-form">
                   <div class="form-group">
                     <input type="hidden" value="{{id}}" name="yelp-id"><label>Message:</label>
