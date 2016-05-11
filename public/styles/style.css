@@ -16,6 +16,10 @@ body {
   background-color: #1d1500;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 h3.landing-page {
   color: white;
   font-family: 'Titillium Web', sans-serif;
