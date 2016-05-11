@@ -6,6 +6,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       <title>What am I even doing?</title>
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="styles/normalize.css" media="screen" charset="utf-8">
       <link rel="stylesheet" href="styles/html5bp.css" media="screen" charset="utf-8">
       <link rel="stylesheet" href="styles/style.css" media="screen" charset="utf-8">
@@ -52,13 +53,13 @@
         <script id="activities-template" type="text/x-handlebars-template">
           <article class="activity" id="{{id}}">
             <section class="featured-image">
-              <img src="{{image}}" alt="" />
+              <a class="activity-link" href="{{link}}" target="_blank"><img src="{{image}}" alt="" /></a>
             </section>
             <section class="activity-content">
-                <a class="story-link" href="{{link}}" target="_blank"><h3 class="title">{{title}}</h3></a>
+                <a class="activity-link" href="{{link}}" target="_blank"><h3 class="title">{{title}}</h3></a>
                 <p class="address">{{address}} | <span class="phone">{{phone}}</span></p>
-                <a href="#" class="comment">Comment</a>
                 <ul class="comment-list"></ul>
+                <a href="#" class="comment">Comment</a>
                 <form action="" class="hidden message-form">
                   <div class="form-group">
                     <input type="hidden" value="{{id}}" name="yelp-id"><label>Message:</label>
@@ -67,7 +68,7 @@
                   <button class="btn btn-default">Add Comment</button>
                 </form>
             </section>
-            <section class="impressions">
+            <section class="rating">
               Rating: {{rating}}
             </section>
             <div class="clearfix"></div>

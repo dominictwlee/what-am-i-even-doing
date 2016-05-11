@@ -55,7 +55,7 @@ function Activity(options) {
 */
 function addComment(yelpId, comment) {
   var $activity = $('#' + yelpId);
-  $activity.find("ul.comment-list").append('<li id="' + comment.objectId + '">' + comment.text + "<a href='#' class='delete'>Delete</a>");
+  $activity.find("ul.comment-list").append('<li id="' + comment.objectId + '">' + comment.text + '<i class="fa fa-trash delete"></i>');
 
   var $delete = $activity.find('.delete');
 
@@ -89,7 +89,7 @@ function setComments(yelpId, comments) {
   var commentElements = comments.map(function (comment) {
     return (
       '<li id="' + comment.objectId + '">' + comment.text +
-        '<a href="#" class="delete">Delete</a>' +
+        '<i class="fa fa-trash delete"></i>' +
       '</li>'
     );
   });
@@ -155,8 +155,9 @@ $.ajax({
       * }
       */
       var commentsById = {};
-
+      // filtering comments for selected activity
       Comment_MAC.where({$or: activityQueryParams}, function(err, comments){
+        // if not array of comments, return
         if (!Array.isArray(comments)) return;
 
         /**
