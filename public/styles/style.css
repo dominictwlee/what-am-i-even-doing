@@ -161,3 +161,24 @@ article.activity {
 .content {
   display: none;
 }
+
+@media screen and (max-width: 1050px) {
+    .container {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 800px) {
+  header nav {
+    float: none;
+  }
+  header h1 {
+    float: none;
+  }
+  header {
+    text-align: center;
+  }
+  h2.landing-page {
+    font-size: 3em;
+    margin: 180px auto 0;
+  }
+}
