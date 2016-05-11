@@ -137,13 +137,10 @@ $.ajax({
 
         // get comments where id is activitityData[i].id
 
-
         // Comment_MAC.get(objectId, businessId, function(err, comment) {
         //     // check for error
         //     console.log(comment);
         // });
-        // for each comment
-        // append to the templated activity
       }
 
       /**
