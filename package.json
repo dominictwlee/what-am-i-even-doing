@@ -19,6 +19,6 @@
   "homepage": "https://github.com/megancoyle/what-am-i-even-doing#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "yelp": "^1.0.1"
+    "yelp-api-v3": "^1.5.0"
   }
 }
