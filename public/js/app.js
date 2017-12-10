@@ -75,7 +75,7 @@ function searchStuff(queryLocation, queryTerm) {
             var activity = new Activity({
             title: activityData[i].name,
             id: activityData[i].id,
-            address: activityData[i].location.address[0],
+            address: activityData[i].location.display_address[0],
             phone: formattedPhoneNumber,
             rating: activityData[i].rating,
             image: activityData[i].image_url,

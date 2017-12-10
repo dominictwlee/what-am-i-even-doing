@@ -1,15 +1,9 @@
+require('dotenv').config();
 var fs = require('fs')
 var path = require('path');
 var express = require('express');
-// var yelpService = require('./server/yelp');
-var env = fs.existsSync('./env.js')? require('./env') : process.env
-
-var Yelp = require('yelp-api-v3');
-
-var yelp = new Yelp({
-  app_id: env.app_id,
-  app_secret: env.app_secret
-});
+const Yelp = require("./yelp");
+const yelp = new Yelp({ apiKey: process.env.YELP_API_KEY })
 
 var app = express();
 
@@ -25,15 +19,17 @@ app.get('/api/search', function (req, res) {
     });
   }
 
-  yelp.search({ term: term, location: location })
-    .then(function (data) {
-      res.json(data);
+  yelp.search({ term, location })
+    .then(data => {
+      return res.json(data);
     })
-    .catch(console.error);
+    .catch((e) => {
+      console.error("Error", e);
+    });
 });
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 // app.get('/config', function (req, res) {
 //   res.sendFile(path.join(__dirname, 'config.html'));
