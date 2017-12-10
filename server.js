@@ -7,10 +7,7 @@ var env = fs.existsSync('./env.js')? require('./env') : process.env
 var Yelp = require('yelp');
 
 var yelp = new Yelp({
-  consumer_key: env.consumer_key,
-  consumer_secret: env.consumer_secret,
-  token: env.token,
-  token_secret: env.token_secret,
+  Authorization: env.Authorization
 });
 
 var app = express();
