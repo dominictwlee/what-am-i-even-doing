@@ -30,7 +30,8 @@ app.get('/api/search', function (req, res) {
   yelp.search({ term: term, location: location })
     .then(function (data) {
       res.json(data);
-    });
+    })
+    .catch(console.error);
 });
 
 app.get('/', function (req, res) {

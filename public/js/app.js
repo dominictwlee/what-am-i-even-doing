@@ -47,22 +47,6 @@ function Activity(options) {
   this.image = options.image;
   this.link = options.link;
 }
-/**
-* Add a single comment to the comments list element (on form submission)
-*/
-function addComment(yelpId, comment) {
-  var $activity = $('#' + yelpId);
-  $activity.find("ul.comment-list").append('<li id="' + comment.objectId + '">' + comment.text + '<i class="fa fa-trash delete"></i>');
-
-  var $delete = $activity.find('.delete');
-
-  $delete.on('click', function(e) {
-    e.preventDefault();
-    removeComment($(this).closest('li'));
-    // var $activity = $(this).closest(".activity");
-    // var $commentToDelete = $activity.find("li");
-  });
-}
 
 // Activity Search
 function searchStuff(queryLocation, queryTerm) {
@@ -72,40 +56,39 @@ function searchStuff(queryLocation, queryTerm) {
     alert("Please add a location.");
   // Else run specificed search
   } else {
+      var query = $.param({
+          term: queryTerm,
+          location: queryLocation
+      });
 
-  var query = $.param({
-      term: queryTerm,
-      location: queryLocation
-    });
-  var url = '/api/search/?' + query;
-$.ajax({
-  url: url,
-  success: function(response){
-      var activityData = response.businesses
-      var activityQueryParams = [];
+      var url = '/api/search/?' + query;
+      $.ajax({
+        url: url,
+        success: function(response){
+          var activityData = response.businesses
+          var activityQueryParams = [];
 
-      for (i = 0; i < activityData.length; i++) {
-        var phoneNumber = activityData[i].phone;
-        var formattedPhoneNumber = formatNumber(phoneNumber);
-        // console.log(activityData[i])
-        var activity = new Activity({
-          title: activityData[i].name,
-          id: activityData[i].id,
-          address: activityData[i].location.address[0],
-          phone: formattedPhoneNumber,
-          rating: activityData[i].rating,
-          image: activityData[i].image_url,
-          link: activityData[i].url,
-        });
+          for (i = 0; i < activityData.length; i++) {
+            var phoneNumber = activityData[i].phone;
+            var formattedPhoneNumber = formatNumber(phoneNumber);
+            // console.log(activityData[i])
+            var activity = new Activity({
+            title: activityData[i].name,
+            id: activityData[i].id,
+            address: activityData[i].location.address[0],
+            phone: formattedPhoneNumber,
+            rating: activityData[i].rating,
+            image: activityData[i].image_url,
+            link: activityData[i].url,
+            });
 
-        activityQueryParams.push({id: activity.id});
-
-        $mainContent.append(template(activity));
+            activityQueryParams.push({id: activity.id});
+            $mainContent.append(template(activity));
+        }
+      },
+      error: function () {
+        console.log("Can't load because of error.");
       }
-  },
-  error: function () {
-    alert("Can't load because of error.");
+    })
   }
-  })
-}
 }
