@@ -11,9 +11,6 @@ var $mainContent = $("#main");
 var source = $("#activities-template").html();
 var template = Handlebars.compile(source);
 
-// Variable for CRUD
-// var Comment_MAC = new ParseObjectType('Comment_MAC');
-
 // Format phone number
 function formatNumber(phoneNumber) {
   phoneNumber = phoneNumber || "";
@@ -67,36 +64,6 @@ function addComment(yelpId, comment) {
   });
 }
 
-// function removeComment($commentToRemove){
-//   var commentId = $commentToRemove.attr('id');
-//   Comment_MAC.remove(commentId, function(err, result){
-//     // Check for err
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         console.log(result);
-//         $commentToRemove.remove();
-//     }
-//   })
-// }
-
-/**
-* Initialize the comments-list element from an array of comments objects
-* (when the yelp activity is first loaded)
-*/
-function setComments(yelpId, comments) {
-  var $activity = $('#' + yelpId);
-  var commentElements = comments.map(function (comment) {
-    return (
-      '<li id="' + comment.objectId + '">' + comment.text +
-        '<i class="fa fa-trash delete"></i>' +
-      '</li>'
-    );
-  });
-
-  $activity.find("ul.comment-list").html(commentElements);
-}
-
 // Activity Search
 function searchStuff(queryLocation, queryTerm) {
   $mainContent.empty();
@@ -134,94 +101,7 @@ $.ajax({
         activityQueryParams.push({id: activity.id});
 
         $mainContent.append(template(activity));
-
-        // get comments where id is activitityData[i].id
-
-        // Comment_MAC.get(objectId, businessId, function(err, comment) {
-        //     // check for error
-        //     console.log(comment);
-        // });
       }
-
-      /**
-      * commentsById = {
-      *  'earth-treks-climbing-centers-timonium-timonium': [
-      *     {... text: 'my comment'},
-      *     {... text: 'another comment'}
-      *  ]
-      * }
-      */
-    //   var commentsById = {};
-    //   // Filtering comments for selected activity
-    //   Comment_MAC.where({$or: activityQueryParams}, function(err, comments){
-    //     // if not array of comments, return
-    //     if (!Array.isArray(comments)) return;
-    //
-    //     /**
-    //     * Iterate over comments in API response, grouping them by ID
-    //     */
-    //     comments.forEach(function (comment) {
-    //       if (Array.isArray(commentsById[comment.id])) {
-    //         commentsById[comment.id].push(comment);
-    //       } else {
-    //         commentsById[comment.id] = [comment];
-    //       }
-    //     });
-    //
-    //     /**
-    //     * Iterate over commentsById and append the comments
-    //     * to their corresponding DOM elements
-    //     */
-    //     for (var id in commentsById) {
-    //       var comments = commentsById[id] || [];
-    //       setComments(id, comments);
-    //       // comments.forEach(function (comment) {
-    //       //   addComment(id, comment.text);
-    //       // });
-    //     }
-    //     var $delete = $(".delete");
-    //     $delete.on('click', function(e) {
-    //       e.preventDefault();
-    //       removeComment($(this).closest('li'));
-    //       // var $activity = $(this).closest(".activity");
-    //       // var $commentToDelete = $activity.find("li");
-    //     })
-    //   })
-    //
-    //   // Commenting
-    //   var $commentLink = $(".comment");
-    //   var $form = $("form");
-    //   $commentLink.on('click', function (e) {
-    //     e.preventDefault();
-    //     var $activity = $(this).closest(".activity");
-    //     var $messageText = $activity.find(".message");
-    //     // Show hidden comment form
-    //     $activity.find($form).toggleClass("hidden");
-    //     $messageText.focus();
-    //   })
-    //
-    //   $form.submit(function (e) {
-    //     e.preventDefault();
-    //     var $activity = $(this).closest(".activity");
-    //     var $messageText = $activity.find(".message");
-    //     var comment = $activity.find($messageText).val();
-    //     var id = $activity.find("[name='yelp-id']").val();
-    //     $messageText.val('');
-    //
-    //     var commentData = {text: comment, id: id}
-    //     Comment_MAC.create(commentData, function(err, comment) {
-    //     // If an error exists, read it in the console
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         comment.text = commentData.text;
-    //         comment.id = commentData.id;
-    //
-    //         console.log(comment);
-    //         addComment(id, comment);
-    //     }
-    //   })
-    // })
   },
   error: function () {
     alert("Can't load because of error.");
