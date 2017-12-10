@@ -4,7 +4,7 @@ var express = require('express');
 // var yelpService = require('./server/yelp');
 var env = fs.existsSync('./env.js')? require('./env') : process.env
 
-var Yelp = require('yelp');
+var Yelp = require('yelp-api-v3');
 
 var yelp = new Yelp({
   app_id: env.app_id,
